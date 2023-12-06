@@ -6,7 +6,7 @@ part of 'instance_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$instanceHash() => r'e6739ded3f1f5605a408a8bc77b72bf129f64080';
+String _$instanceHash() => r'06ff6560576b372afe0ab2987fdb8772e449dd47';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -38,7 +38,7 @@ const instanceProvider = InstanceFamily();
 /// Fetches information related to an instance/provider at a given path
 ///
 /// Copied from [instance].
-class InstanceFamily extends Family<AsyncValue<InstanceDetails>> {
+class InstanceFamily extends Family<AsyncValue<InstanceDetails?>> {
   /// Fetches information related to an instance/provider at a given path
   ///
   /// Copied from [instance].
@@ -82,7 +82,7 @@ class InstanceFamily extends Family<AsyncValue<InstanceDetails>> {
 /// Fetches information related to an instance/provider at a given path
 ///
 /// Copied from [instance].
-class InstanceProvider extends AutoDisposeFutureProvider<InstanceDetails> {
+class InstanceProvider extends AutoDisposeFutureProvider<InstanceDetails?> {
   /// Fetches information related to an instance/provider at a given path
   ///
   /// Copied from [instance].
@@ -118,7 +118,7 @@ class InstanceProvider extends AutoDisposeFutureProvider<InstanceDetails> {
 
   @override
   Override overrideWith(
-    FutureOr<InstanceDetails> Function(InstanceRef provider) create,
+    FutureOr<InstanceDetails?> Function(InstanceRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -135,7 +135,7 @@ class InstanceProvider extends AutoDisposeFutureProvider<InstanceDetails> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<InstanceDetails> createElement() {
+  AutoDisposeFutureProviderElement<InstanceDetails?> createElement() {
     return _InstanceProviderElement(this);
   }
 
@@ -153,145 +153,18 @@ class InstanceProvider extends AutoDisposeFutureProvider<InstanceDetails> {
   }
 }
 
-mixin InstanceRef on AutoDisposeFutureProviderRef<InstanceDetails> {
+mixin InstanceRef on AutoDisposeFutureProviderRef<InstanceDetails?> {
   /// The parameter `path` of this provider.
   InstancePath get path;
 }
 
 class _InstanceProviderElement
-    extends AutoDisposeFutureProviderElement<InstanceDetails> with InstanceRef {
+    extends AutoDisposeFutureProviderElement<InstanceDetails?>
+    with InstanceRef {
   _InstanceProviderElement(super.provider);
 
   @override
   InstancePath get path => (origin as InstanceProvider).path;
-}
-
-String _$onProviderChangeHash() => r'83096cd397b98e31e107760a7ee71b0cfd877974';
-
-/// See also [_onProviderChange].
-@ProviderFor(_onProviderChange)
-const _onProviderChangeProvider = _OnProviderChangeFamily();
-
-/// See also [_onProviderChange].
-class _OnProviderChangeFamily extends Family<void> {
-  /// See also [_onProviderChange].
-  const _OnProviderChangeFamily();
-
-  /// See also [_onProviderChange].
-  _OnProviderChangeProvider call({
-    required String providerId,
-  }) {
-    return _OnProviderChangeProvider(
-      providerId: providerId,
-    );
-  }
-
-  @override
-  _OnProviderChangeProvider getProviderOverride(
-    covariant _OnProviderChangeProvider provider,
-  ) {
-    return call(
-      providerId: provider.providerId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'_onProviderChangeProvider';
-}
-
-/// See also [_onProviderChange].
-class _OnProviderChangeProvider extends AutoDisposeProvider<void> {
-  /// See also [_onProviderChange].
-  _OnProviderChangeProvider({
-    required String providerId,
-  }) : this._internal(
-          (ref) => _onProviderChange(
-            ref as _OnProviderChangeRef,
-            providerId: providerId,
-          ),
-          from: _onProviderChangeProvider,
-          name: r'_onProviderChangeProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$onProviderChangeHash,
-          dependencies: _OnProviderChangeFamily._dependencies,
-          allTransitiveDependencies:
-              _OnProviderChangeFamily._allTransitiveDependencies,
-          providerId: providerId,
-        );
-
-  _OnProviderChangeProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.providerId,
-  }) : super.internal();
-
-  final String providerId;
-
-  @override
-  Override overrideWith(
-    void Function(_OnProviderChangeRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: _OnProviderChangeProvider._internal(
-        (ref) => create(ref as _OnProviderChangeRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        providerId: providerId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeProviderElement<void> createElement() {
-    return _OnProviderChangeProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is _OnProviderChangeProvider && other.providerId == providerId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, providerId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin _OnProviderChangeRef on AutoDisposeProviderRef<void> {
-  /// The parameter `providerId` of this provider.
-  String get providerId;
-}
-
-class _OnProviderChangeProviderElement extends AutoDisposeProviderElement<void>
-    with _OnProviderChangeRef {
-  _OnProviderChangeProviderElement(super.provider);
-
-  @override
-  String get providerId => (origin as _OnProviderChangeProvider).providerId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

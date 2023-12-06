@@ -1,9 +1,13 @@
+// ignore_for_file: invalid_use_of_internal_member
+
 import 'dart:async';
 
 import 'package:devtools_app_shared/service.dart' as devtool;
 import 'package:devtools_app_shared/utils.dart' as devtool;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vm_service/vm_service.dart' as vm_service;
+// ignore: implementation_imports
+import 'package:riverpod/src/devtool.dart';
 
 part 'introspection.g.dart';
 
@@ -79,4 +83,31 @@ void hotRestart(HotRestartRef ref) {
   ref.onDispose(
     () => selectedIsolateListenable.removeListener(ref.notifyListeners),
   );
+}
+
+extension on Stream<vm_service.Event> {
+  Stream<DevtoolEvent> asDevtoolEvent() {
+    return map((event) {
+      final kind = event.kind!;
+      final data = event.extensionData?.data ?? const {};
+
+      return DevtoolEvent(kind: kind, data: data);
+    });
+  }
+}
+
+@riverpod
+void onProviderChange(OnProviderChangeRef ref, ProviderKey providerKey) {
+  final service = ref.watch(vmServiceProvider);
+  if (service == null) return;
+
+  final providerChangeStream = providerDidChange
+      .stream(service.onExtensionEvent.asDevtoolEvent())
+      .where((key) => key == providerKey);
+
+  final subscription = providerChangeStream.listen((event) {
+    ref.notifyListeners();
+  });
+
+  ref.onDispose(subscription.cancel);
 }

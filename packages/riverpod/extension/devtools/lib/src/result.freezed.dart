@@ -37,20 +37,20 @@ mixin _$Result<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ResultData<T> value) data,
-    required TResult Function(_ResultError<T> value) error,
+    required TResult Function(ResultData<T> value) data,
+    required TResult Function(ResultError<T> value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ResultData<T> value)? data,
-    TResult? Function(_ResultError<T> value)? error,
+    TResult? Function(ResultData<T> value)? data,
+    TResult? Function(ResultError<T> value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ResultData<T> value)? data,
-    TResult Function(_ResultError<T> value)? error,
+    TResult Function(ResultData<T> value)? data,
+    TResult Function(ResultError<T> value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,7 +106,7 @@ class __$$ResultDataImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$ResultDataImpl<T> extends _ResultData<T> with DiagnosticableTreeMixin {
+class _$ResultDataImpl<T> extends ResultData<T> with DiagnosticableTreeMixin {
   _$ResultDataImpl(this.value) : super._();
 
   @override
@@ -177,8 +177,8 @@ class _$ResultDataImpl<T> extends _ResultData<T> with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ResultData<T> value) data,
-    required TResult Function(_ResultError<T> value) error,
+    required TResult Function(ResultData<T> value) data,
+    required TResult Function(ResultError<T> value) error,
   }) {
     return data(this);
   }
@@ -186,8 +186,8 @@ class _$ResultDataImpl<T> extends _ResultData<T> with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ResultData<T> value)? data,
-    TResult? Function(_ResultError<T> value)? error,
+    TResult? Function(ResultData<T> value)? data,
+    TResult? Function(ResultError<T> value)? error,
   }) {
     return data?.call(this);
   }
@@ -195,8 +195,8 @@ class _$ResultDataImpl<T> extends _ResultData<T> with DiagnosticableTreeMixin {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ResultData<T> value)? data,
-    TResult Function(_ResultError<T> value)? error,
+    TResult Function(ResultData<T> value)? data,
+    TResult Function(ResultError<T> value)? error,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -206,9 +206,9 @@ class _$ResultDataImpl<T> extends _ResultData<T> with DiagnosticableTreeMixin {
   }
 }
 
-abstract class _ResultData<T> extends Result<T> {
-  factory _ResultData(final T value) = _$ResultDataImpl<T>;
-  _ResultData._() : super._();
+abstract class ResultData<T> extends Result<T> {
+  factory ResultData(final T value) = _$ResultDataImpl<T>;
+  ResultData._() : super._();
 
   T get value;
   @JsonKey(ignore: true)
@@ -251,8 +251,7 @@ class __$$ResultErrorImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$ResultErrorImpl<T> extends _ResultError<T>
-    with DiagnosticableTreeMixin {
+class _$ResultErrorImpl<T> extends ResultError<T> with DiagnosticableTreeMixin {
   _$ResultErrorImpl(this.error, this.stackTrace) : super._();
 
   @override
@@ -329,8 +328,8 @@ class _$ResultErrorImpl<T> extends _ResultError<T>
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ResultData<T> value) data,
-    required TResult Function(_ResultError<T> value) error,
+    required TResult Function(ResultData<T> value) data,
+    required TResult Function(ResultError<T> value) error,
   }) {
     return error(this);
   }
@@ -338,8 +337,8 @@ class _$ResultErrorImpl<T> extends _ResultError<T>
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ResultData<T> value)? data,
-    TResult? Function(_ResultError<T> value)? error,
+    TResult? Function(ResultData<T> value)? data,
+    TResult? Function(ResultError<T> value)? error,
   }) {
     return error?.call(this);
   }
@@ -347,8 +346,8 @@ class _$ResultErrorImpl<T> extends _ResultError<T>
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ResultData<T> value)? data,
-    TResult Function(_ResultError<T> value)? error,
+    TResult Function(ResultData<T> value)? data,
+    TResult Function(ResultError<T> value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -358,10 +357,10 @@ class _$ResultErrorImpl<T> extends _ResultError<T>
   }
 }
 
-abstract class _ResultError<T> extends Result<T> {
-  factory _ResultError(final Object error, final StackTrace stackTrace) =
+abstract class ResultError<T> extends Result<T> {
+  factory ResultError(final Object error, final StackTrace stackTrace) =
       _$ResultErrorImpl<T>;
-  _ResultError._() : super._();
+  ResultError._() : super._();
 
   Object get error;
   StackTrace get stackTrace;

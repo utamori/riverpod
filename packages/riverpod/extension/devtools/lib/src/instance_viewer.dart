@@ -34,6 +34,9 @@ final isExpandedProvider = StateProviderFamily<bool, InstancePath>((ref, path) {
   return path.pathToField.isEmpty;
 });
 
+/// An estimate of how tall the rendering of a node is.
+///
+/// This includes the height of the node itself, and the height of its children.
 @riverpod
 int estimatedChildCount(EstimatedChildCountRef ref, InstancePath rootPath) {
   int estimatedChildCount(InstancePath path) {
@@ -132,15 +135,16 @@ class _InstanceViewerState extends ConsumerState<InstanceViewer> {
           loading: () => const [Text('loading...')],
           error: (err, stack) => _buildError(err, stack, path),
           data: (instance) sync* {
-            final isExpanded = ref.watch(isExpandedProvider(path).state);
+            final isExpanded = ref.watch(isExpandedProvider(path));
+
             yield _buildHeader(
-              instance,
+              instance!,
               path: path,
               isExpanded: isExpanded,
               disableExpand: disableExpand,
             );
 
-            if (isExpanded.state) {
+            if (isExpanded) {
               yield* instance.maybeMap(
                 object: (instance) => _buildObjectItem(
                   context,
@@ -171,13 +175,15 @@ class _InstanceViewerState extends ConsumerState<InstanceViewer> {
   Widget _buildHeader(
     InstanceDetails instance, {
     required InstancePath path,
-    StateController<bool>? isExpanded,
+    bool? isExpanded,
+    void Function()? onExpandChange,
     bool disableExpand = false,
   }) {
     return _Expandable(
       key: ValueKey(path),
       isExpandable: !disableExpand && instance.isExpandable,
       isExpanded: isExpanded,
+      onExpandChange: onExpandChange,
       title: instance.map(
         enumeration: (instance) => _EditableField(
           setter: instance.setter,
@@ -403,14 +409,14 @@ class _InstanceViewerState extends ConsumerState<InstanceViewer> {
           horizontal: defaultSpacing,
         ),
         childrenDelegate: SliverIterableChildDelegate(
+          estimatedChildCount:
+              ref.watch(estimatedChildCountProvider(widget.rootPath)),
           _buildListViewItems(
             context,
             ref,
             path: widget.rootPath,
             disableExpand: true,
           ).cast<Widget?>(), // This cast is necessary to avoid Null type errors
-          estimatedChildCount:
-              ref.watch(estimatedChildCountProvider(widget.rootPath)),
         ),
       ),
     );
@@ -587,11 +593,13 @@ class _Expandable extends StatelessWidget {
     Key? key,
     required this.isExpanded,
     required this.isExpandable,
+    required this.onExpandChange,
     required this.title,
   }) : super(key: key);
 
-  final StateController<bool>? isExpanded;
+  final bool? isExpanded;
   final bool isExpandable;
+  final void Function()? onExpandChange;
   final Widget title;
 
   @override
@@ -606,12 +614,12 @@ class _Expandable extends StatelessWidget {
     final isExpanded = this.isExpanded!;
 
     return GestureDetector(
-      onTap: () => isExpanded.state = !isExpanded.state,
+      onTap: onExpandChange,
       behavior: HitTestBehavior.opaque,
       child: Row(
         children: [
           TweenAnimationBuilder<double>(
-            tween: Tween(end: isExpanded.state ? 0 : -math.pi / 2),
+            tween: Tween(end: isExpanded ? 0 : -math.pi / 2),
             duration: defaultDuration,
             builder: (context, angle, _) {
               return Transform.rotate(

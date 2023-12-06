@@ -45,7 +45,10 @@ void Function()? debugCanModifyProviders;
 /// {@endtemplate}
 abstract class ProviderElementBase<State> implements Ref<State>, Node {
   /// {@macro riverpod.provider_element_base}
-  ProviderElementBase(this._provider);
+  ProviderElementBase(this._provider)
+      : debugProviderId = kDebugMode ? _nextDebugId++ : null;
+
+  static int _nextDebugId = 0;
 
   static ProviderElementBase<Object?>? _debugCurrentlyBuildingElement;
 
@@ -68,6 +71,10 @@ abstract class ProviderElementBase<State> implements Ref<State>, Node {
   @override
   ProviderContainer get container => _container;
   late final ProviderContainer _container;
+
+  /// A unique ID for the devtool
+  @internal
+  final int? debugProviderId;
 
   /// Whether this [ProviderElementBase] is currently listened to or not.
   ///

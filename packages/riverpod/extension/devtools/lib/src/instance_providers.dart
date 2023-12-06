@@ -8,8 +8,8 @@ import 'package:collection/collection.dart';
 import 'package:devtools_app_shared/service.dart';
 import 'package:devtools_app_shared/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider_devtools_extension/src/riverpod_experimental.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:riverpod_devtools_extension/src/riverpod_eval.dart';
 import 'package:vm_service/vm_service.dart' as vm_service;
 
 import 'instance_details.dart';
@@ -18,45 +18,46 @@ import 'result.dart';
 
 part 'instance_providers.g.dart';
 
-Future<vm_service.InstanceRef> _resolveInstanceRefForPath(
+Future<vm_service.InstanceRef?> _resolveInstanceRefForPath(
   InstancePath path, {
   required AutoDisposeRef ref,
   required Disposable isAlive,
   required InstanceDetails? parent,
 }) async {
   if (parent == null) {
-    // root of the provider tree
+    // Root of the provider tree
 
-    return path.map(
-      fromProviderId: (path) async {
-        final eval = await ref.watch(evalProvider.riverpod.future);
-        // cause the instances to be re-evaluated when the devtool is notified
+    switch (path) {
+      case ProviderKeyInstancePath(:final providerKey):
+        final eval = RiverpodDevtoolEval(
+          await ref.watch(evalProvider.riverpod.future),
+        );
+        // Causes the instances to be re-evaluated when the devtool is notified
         // that a provider changed
-        ref.watch(_onProviderChangeProvider(providerId: path.providerId));
+        ref.watch(onProviderChangeProvider(path.providerKey));
 
-        return eval.safeEval(
-          'ProviderBinding.debugInstance.providerDetails["${path.providerId}"]?.value',
+        final result = await eval.nodeAt(
+          providerKey,
           isAlive: isAlive,
         );
-      },
-      fromInstanceId: (path) async {
+
+        return result?.dataOrThrow;
+
+      case IdInstancePath():
         final eval = await ref.watch(evalProvider.io.future);
+
         return eval.safeEval(
           'value',
           isAlive: isAlive,
           scope: {'value': path.instanceId},
         );
-      },
-    );
+    }
   }
 
   final eval = await ref.watch(evalProvider.io.future);
 
-  return parent.maybeMap(
-    // TODO: support sets
-    // TODO: iterables should use iterators / next() for iterable to navigate, to avoid recomputing the content
-
-    map: (parent) {
+  switch (parent) {
+    case MapInstance():
       final keyPath = path.pathToField.last as MapKeyPath;
       final key = keyPath.ref == null ? 'null' : 'key';
       final keyPathRef = keyPath.ref;
@@ -69,8 +70,8 @@ Future<vm_service.InstanceRef> _resolveInstanceRefForPath(
           if (keyPathRef != null) 'key': keyPathRef,
         },
       );
-    },
-    list: (parent) {
+
+    case ListInstance():
       final indexPath = path.pathToField.last as ListIndexPath;
 
       return eval.safeEval(
@@ -78,8 +79,8 @@ Future<vm_service.InstanceRef> _resolveInstanceRefForPath(
         isAlive: isAlive,
         scope: {'parent': parent.instanceRefId},
       );
-    },
-    object: (parent) {
+
+    case ObjectInstance():
       final propertyPath = path.pathToField.last as PropertyPath;
 
       // compare by both name and ref ID because an object may have multiple
@@ -96,9 +97,10 @@ Future<vm_service.InstanceRef> _resolveInstanceRefForPath(
       // we cannot do `eval('parent.propertyName')` because it is possible for
       // objects to have multiple properties with the same name
       return eval.safeGetInstance(ref, isAlive);
-    },
-    orElse: () => throw Exception('Unexpected instance type.'),
-  );
+
+    case _:
+      throw UnsupportedError(parent.runtimeType.toString());
+  }
 }
 
 /// Update a variable using the `=` operator.
@@ -266,10 +268,10 @@ Setter? _parseSetter({
 
 /// Fetches information related to an instance/provider at a given path
 @riverpod
-FutureOr<InstanceDetails> instance(InstanceRef ref, InstancePath path) async {
+FutureOr<InstanceDetails?> instance(InstanceRef ref, InstancePath path) async {
   ref.watch(hotRestartProvider);
 
-  final eval = await ref.watch(evalProvider.io.future).sync;
+  final eval = await ref.watch(evalProvider.io.future);
 
   final isAlive = Disposable();
   ref.onDispose(isAlive.dispose);
@@ -282,6 +284,7 @@ FutureOr<InstanceDetails> instance(InstanceRef ref, InstancePath path) async {
     parent: parent,
     isAlive: isAlive,
   );
+  if (instanceRef == null) return null;
 
   final setter = _parseSetter(
     path: path,
@@ -323,9 +326,12 @@ FutureOr<InstanceDetails> instance(InstanceRef ref, InstancePath path) async {
 
       final keysFuture = Future.wait<InstanceDetails>([
         for (final keyRef in keysRef)
-          ref.watch(
-            instanceProvider(InstancePath.fromInstanceId(keyRef.id!)).future,
-          ),
+          ref
+              .watch(
+                instanceProvider(InstancePath.fromInstanceId(keyRef.id!))
+                    .future,
+              )
+              .then((value) => value!),
       ]);
 
       return InstanceDetails.map(
@@ -335,9 +341,6 @@ FutureOr<InstanceDetails> instance(InstanceRef ref, InstancePath path) async {
         setter: setter,
       );
 
-    // TODO(rrousselGit): support sets
-    // TODO(rrousselGit): support custom lists
-    // TODO(rrousselGit): support Type
     case vm_service.InstanceKind.kList:
       return InstanceDetails.list(
         length: instance.length!,
@@ -356,7 +359,7 @@ FutureOr<InstanceDetails> instance(InstanceRef ref, InstancePath path) async {
         setter: setter,
       );
 
-      if (enumDetails != null) return enumDetails;
+      if (enumDetails != null) return (enumDetails);
 
       final classInstance =
           await eval.safeGetClass(instance.classRef!, isAlive);
@@ -424,22 +427,4 @@ Future<List<ObjectField>> _parseFields(
   }).toList();
 
   return Future.wait(fields);
-}
-
-@riverpod
-void _onProviderChange(_OnProviderChangeRef ref, {required String providerId}) {
-  final service = ref.watch(vmServiceProvider);
-  if (service == null) return;
-
-  final providerChangeStream = service.onExtensionEvent.where(
-    (event) =>
-        event.extensionKind == 'provider:provider_changed' &&
-        event.extensionData?.data['id'] == providerId,
-  );
-
-  final subscription = providerChangeStream.listen((event) {
-    ref.notifyListeners();
-  });
-
-  ref.onDispose(subscription.cancel);
 }

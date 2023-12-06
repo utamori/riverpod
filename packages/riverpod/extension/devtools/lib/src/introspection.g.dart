@@ -203,5 +203,134 @@ final hotRestartProvider = AutoDisposeProvider<void>.internal(
 );
 
 typedef HotRestartRef = AutoDisposeProviderRef<void>;
+String _$onProviderChangeHash() => r'32ed6e0439a8ff7d67ad10bebdeac56653a5a6de';
+
+/// See also [onProviderChange].
+@ProviderFor(onProviderChange)
+const onProviderChangeProvider = OnProviderChangeFamily();
+
+/// See also [onProviderChange].
+class OnProviderChangeFamily extends Family<void> {
+  /// See also [onProviderChange].
+  const OnProviderChangeFamily();
+
+  /// See also [onProviderChange].
+  OnProviderChangeProvider call(
+    ProviderKey providerKey,
+  ) {
+    return OnProviderChangeProvider(
+      providerKey,
+    );
+  }
+
+  @override
+  OnProviderChangeProvider getProviderOverride(
+    covariant OnProviderChangeProvider provider,
+  ) {
+    return call(
+      provider.providerKey,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'onProviderChangeProvider';
+}
+
+/// See also [onProviderChange].
+class OnProviderChangeProvider extends AutoDisposeProvider<void> {
+  /// See also [onProviderChange].
+  OnProviderChangeProvider(
+    ProviderKey providerKey,
+  ) : this._internal(
+          (ref) => onProviderChange(
+            ref as OnProviderChangeRef,
+            providerKey,
+          ),
+          from: onProviderChangeProvider,
+          name: r'onProviderChangeProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$onProviderChangeHash,
+          dependencies: OnProviderChangeFamily._dependencies,
+          allTransitiveDependencies:
+              OnProviderChangeFamily._allTransitiveDependencies,
+          providerKey: providerKey,
+        );
+
+  OnProviderChangeProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.providerKey,
+  }) : super.internal();
+
+  final ProviderKey providerKey;
+
+  @override
+  Override overrideWith(
+    void Function(OnProviderChangeRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: OnProviderChangeProvider._internal(
+        (ref) => create(ref as OnProviderChangeRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        providerKey: providerKey,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<void> createElement() {
+    return _OnProviderChangeProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OnProviderChangeProvider &&
+        other.providerKey == providerKey;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, providerKey.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin OnProviderChangeRef on AutoDisposeProviderRef<void> {
+  /// The parameter `providerKey` of this provider.
+  ProviderKey get providerKey;
+}
+
+class _OnProviderChangeProviderElement extends AutoDisposeProviderElement<void>
+    with OnProviderChangeRef {
+  _OnProviderChangeProviderElement(super.provider);
+
+  @override
+  ProviderKey get providerKey =>
+      (origin as OnProviderChangeProvider).providerKey;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

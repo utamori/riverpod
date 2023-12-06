@@ -15,10 +15,10 @@ import 'package:vm_service/vm_service.dart' hide SentinelException, Error;
 part 'result.freezed.dart';
 
 @freezed
-class Result<T> with _$Result<T> {
+sealed class Result<T> with _$Result<T> {
   Result._();
-  factory Result.data(T value) = _ResultData<T>;
-  factory Result.error(Object error, StackTrace stackTrace) = _ResultError<T>;
+  factory Result.data(T value) = ResultData<T>;
+  factory Result.error(Object error, StackTrace stackTrace) = ResultError<T>;
 
   factory Result.guard(T Function() cb) {
     try {

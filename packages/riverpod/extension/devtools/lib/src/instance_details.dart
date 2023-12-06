@@ -1,6 +1,8 @@
 import 'package:devtools_app_shared/service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+// ignore: implementation_imports
+import 'package:riverpod/src/devtool.dart';
 import 'package:vm_service/vm_service.dart';
 
 import 'result.dart';
@@ -166,12 +168,12 @@ class InstancePath with _$InstancePath {
   const factory InstancePath.fromInstanceId(
     String instanceId, {
     @Default(<PathToField>[]) List<PathToField> pathToField,
-  }) = _InstancePathFromInstanceId;
+  }) = IdInstancePath;
 
-  const factory InstancePath.fromProviderId(
-    String providerId, {
+  const factory InstancePath.fromProviderKey(
+    ProviderKey providerKey, {
     @Default(<PathToField>[]) List<PathToField> pathToField,
-  }) = _InstancePathFromProviderId;
+  }) = ProviderKeyInstancePath;
 
   InstancePath get root => copyWith(pathToField: []);
 

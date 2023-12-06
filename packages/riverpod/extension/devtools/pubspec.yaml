@@ -1,4 +1,4 @@
-name: provider_devtools_extension
+name: riverpod_devtools_extension
 description: "The Flutter web app for the package:riverpod DevTools extension."
 publish_to: "none"
 

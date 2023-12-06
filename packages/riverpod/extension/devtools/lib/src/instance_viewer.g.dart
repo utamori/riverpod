@@ -30,16 +30,32 @@ class _SystemHash {
   }
 }
 
-/// See also [estimatedChildCount].
+/// An estimate of how tall the rendering of a node is.
+///
+/// This includes the height of the node itself, and the height of its children.
+///
+/// Copied from [estimatedChildCount].
 @ProviderFor(estimatedChildCount)
 const estimatedChildCountProvider = EstimatedChildCountFamily();
 
-/// See also [estimatedChildCount].
+/// An estimate of how tall the rendering of a node is.
+///
+/// This includes the height of the node itself, and the height of its children.
+///
+/// Copied from [estimatedChildCount].
 class EstimatedChildCountFamily extends Family<int> {
-  /// See also [estimatedChildCount].
+  /// An estimate of how tall the rendering of a node is.
+  ///
+  /// This includes the height of the node itself, and the height of its children.
+  ///
+  /// Copied from [estimatedChildCount].
   const EstimatedChildCountFamily();
 
-  /// See also [estimatedChildCount].
+  /// An estimate of how tall the rendering of a node is.
+  ///
+  /// This includes the height of the node itself, and the height of its children.
+  ///
+  /// Copied from [estimatedChildCount].
   EstimatedChildCountProvider call(
     InstancePath rootPath,
   ) {
@@ -72,9 +88,17 @@ class EstimatedChildCountFamily extends Family<int> {
   String? get name => r'estimatedChildCountProvider';
 }
 
-/// See also [estimatedChildCount].
+/// An estimate of how tall the rendering of a node is.
+///
+/// This includes the height of the node itself, and the height of its children.
+///
+/// Copied from [estimatedChildCount].
 class EstimatedChildCountProvider extends AutoDisposeProvider<int> {
-  /// See also [estimatedChildCount].
+  /// An estimate of how tall the rendering of a node is.
+  ///
+  /// This includes the height of the node itself, and the height of its children.
+  ///
+  /// Copied from [estimatedChildCount].
   EstimatedChildCountProvider(
     InstancePath rootPath,
   ) : this._internal(

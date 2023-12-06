@@ -3260,43 +3260,44 @@ mixin _$InstancePath {
   TResult when<TResult extends Object?>({
     required TResult Function(String instanceId, List<PathToField> pathToField)
         fromInstanceId,
-    required TResult Function(String providerId, List<PathToField> pathToField)
-        fromProviderId,
+    required TResult Function(
+            ProviderKey providerKey, List<PathToField> pathToField)
+        fromProviderKey,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instanceId, List<PathToField> pathToField)?
         fromInstanceId,
-    TResult? Function(String providerId, List<PathToField> pathToField)?
-        fromProviderId,
+    TResult? Function(ProviderKey providerKey, List<PathToField> pathToField)?
+        fromProviderKey,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instanceId, List<PathToField> pathToField)?
         fromInstanceId,
-    TResult Function(String providerId, List<PathToField> pathToField)?
-        fromProviderId,
+    TResult Function(ProviderKey providerKey, List<PathToField> pathToField)?
+        fromProviderKey,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InstancePathFromInstanceId value) fromInstanceId,
-    required TResult Function(_InstancePathFromProviderId value) fromProviderId,
+    required TResult Function(IdInstancePath value) fromInstanceId,
+    required TResult Function(ProviderKeyInstancePath value) fromProviderKey,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_InstancePathFromInstanceId value)? fromInstanceId,
-    TResult? Function(_InstancePathFromProviderId value)? fromProviderId,
+    TResult? Function(IdInstancePath value)? fromInstanceId,
+    TResult? Function(ProviderKeyInstancePath value)? fromProviderKey,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InstancePathFromInstanceId value)? fromInstanceId,
-    TResult Function(_InstancePathFromProviderId value)? fromProviderId,
+    TResult Function(IdInstancePath value)? fromInstanceId,
+    TResult Function(ProviderKeyInstancePath value)? fromProviderKey,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3340,24 +3341,22 @@ class _$InstancePathCopyWithImpl<$Res, $Val extends InstancePath>
 }
 
 /// @nodoc
-abstract class _$$InstancePathFromInstanceIdImplCopyWith<$Res>
+abstract class _$$IdInstancePathImplCopyWith<$Res>
     implements $InstancePathCopyWith<$Res> {
-  factory _$$InstancePathFromInstanceIdImplCopyWith(
-          _$InstancePathFromInstanceIdImpl value,
-          $Res Function(_$InstancePathFromInstanceIdImpl) then) =
-      __$$InstancePathFromInstanceIdImplCopyWithImpl<$Res>;
+  factory _$$IdInstancePathImplCopyWith(_$IdInstancePathImpl value,
+          $Res Function(_$IdInstancePathImpl) then) =
+      __$$IdInstancePathImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String instanceId, List<PathToField> pathToField});
 }
 
 /// @nodoc
-class __$$InstancePathFromInstanceIdImplCopyWithImpl<$Res>
-    extends _$InstancePathCopyWithImpl<$Res, _$InstancePathFromInstanceIdImpl>
-    implements _$$InstancePathFromInstanceIdImplCopyWith<$Res> {
-  __$$InstancePathFromInstanceIdImplCopyWithImpl(
-      _$InstancePathFromInstanceIdImpl _value,
-      $Res Function(_$InstancePathFromInstanceIdImpl) _then)
+class __$$IdInstancePathImplCopyWithImpl<$Res>
+    extends _$InstancePathCopyWithImpl<$Res, _$IdInstancePathImpl>
+    implements _$$IdInstancePathImplCopyWith<$Res> {
+  __$$IdInstancePathImplCopyWithImpl(
+      _$IdInstancePathImpl _value, $Res Function(_$IdInstancePathImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3366,7 +3365,7 @@ class __$$InstancePathFromInstanceIdImplCopyWithImpl<$Res>
     Object? instanceId = null,
     Object? pathToField = null,
   }) {
-    return _then(_$InstancePathFromInstanceIdImpl(
+    return _then(_$IdInstancePathImpl(
       null == instanceId
           ? _value.instanceId
           : instanceId // ignore: cast_nullable_to_non_nullable
@@ -3381,9 +3380,8 @@ class __$$InstancePathFromInstanceIdImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
-    with DiagnosticableTreeMixin {
-  const _$InstancePathFromInstanceIdImpl(this.instanceId,
+class _$IdInstancePathImpl extends IdInstancePath with DiagnosticableTreeMixin {
+  const _$IdInstancePathImpl(this.instanceId,
       {final List<PathToField> pathToField = const <PathToField>[]})
       : _pathToField = pathToField,
         super._();
@@ -3417,7 +3415,7 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InstancePathFromInstanceIdImpl &&
+            other is _$IdInstancePathImpl &&
             (identical(other.instanceId, instanceId) ||
                 other.instanceId == instanceId) &&
             const DeepCollectionEquality()
@@ -3431,17 +3429,18 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$InstancePathFromInstanceIdImplCopyWith<_$InstancePathFromInstanceIdImpl>
-      get copyWith => __$$InstancePathFromInstanceIdImplCopyWithImpl<
-          _$InstancePathFromInstanceIdImpl>(this, _$identity);
+  _$$IdInstancePathImplCopyWith<_$IdInstancePathImpl> get copyWith =>
+      __$$IdInstancePathImplCopyWithImpl<_$IdInstancePathImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String instanceId, List<PathToField> pathToField)
         fromInstanceId,
-    required TResult Function(String providerId, List<PathToField> pathToField)
-        fromProviderId,
+    required TResult Function(
+            ProviderKey providerKey, List<PathToField> pathToField)
+        fromProviderKey,
   }) {
     return fromInstanceId(instanceId, pathToField);
   }
@@ -3451,8 +3450,8 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instanceId, List<PathToField> pathToField)?
         fromInstanceId,
-    TResult? Function(String providerId, List<PathToField> pathToField)?
-        fromProviderId,
+    TResult? Function(ProviderKey providerKey, List<PathToField> pathToField)?
+        fromProviderKey,
   }) {
     return fromInstanceId?.call(instanceId, pathToField);
   }
@@ -3462,8 +3461,8 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instanceId, List<PathToField> pathToField)?
         fromInstanceId,
-    TResult Function(String providerId, List<PathToField> pathToField)?
-        fromProviderId,
+    TResult Function(ProviderKey providerKey, List<PathToField> pathToField)?
+        fromProviderKey,
     required TResult orElse(),
   }) {
     if (fromInstanceId != null) {
@@ -3475,8 +3474,8 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InstancePathFromInstanceId value) fromInstanceId,
-    required TResult Function(_InstancePathFromProviderId value) fromProviderId,
+    required TResult Function(IdInstancePath value) fromInstanceId,
+    required TResult Function(ProviderKeyInstancePath value) fromProviderKey,
   }) {
     return fromInstanceId(this);
   }
@@ -3484,8 +3483,8 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_InstancePathFromInstanceId value)? fromInstanceId,
-    TResult? Function(_InstancePathFromProviderId value)? fromProviderId,
+    TResult? Function(IdInstancePath value)? fromInstanceId,
+    TResult? Function(ProviderKeyInstancePath value)? fromProviderKey,
   }) {
     return fromInstanceId?.call(this);
   }
@@ -3493,8 +3492,8 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InstancePathFromInstanceId value)? fromInstanceId,
-    TResult Function(_InstancePathFromProviderId value)? fromProviderId,
+    TResult Function(IdInstancePath value)? fromInstanceId,
+    TResult Function(ProviderKeyInstancePath value)? fromProviderKey,
     required TResult orElse(),
   }) {
     if (fromInstanceId != null) {
@@ -3504,52 +3503,52 @@ class _$InstancePathFromInstanceIdImpl extends _InstancePathFromInstanceId
   }
 }
 
-abstract class _InstancePathFromInstanceId extends InstancePath {
-  const factory _InstancePathFromInstanceId(final String instanceId,
-      {final List<PathToField> pathToField}) = _$InstancePathFromInstanceIdImpl;
-  const _InstancePathFromInstanceId._() : super._();
+abstract class IdInstancePath extends InstancePath {
+  const factory IdInstancePath(final String instanceId,
+      {final List<PathToField> pathToField}) = _$IdInstancePathImpl;
+  const IdInstancePath._() : super._();
 
   String get instanceId;
   @override
   List<PathToField> get pathToField;
   @override
   @JsonKey(ignore: true)
-  _$$InstancePathFromInstanceIdImplCopyWith<_$InstancePathFromInstanceIdImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$IdInstancePathImplCopyWith<_$IdInstancePathImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$InstancePathFromProviderIdImplCopyWith<$Res>
+abstract class _$$ProviderKeyInstancePathImplCopyWith<$Res>
     implements $InstancePathCopyWith<$Res> {
-  factory _$$InstancePathFromProviderIdImplCopyWith(
-          _$InstancePathFromProviderIdImpl value,
-          $Res Function(_$InstancePathFromProviderIdImpl) then) =
-      __$$InstancePathFromProviderIdImplCopyWithImpl<$Res>;
+  factory _$$ProviderKeyInstancePathImplCopyWith(
+          _$ProviderKeyInstancePathImpl value,
+          $Res Function(_$ProviderKeyInstancePathImpl) then) =
+      __$$ProviderKeyInstancePathImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String providerId, List<PathToField> pathToField});
+  $Res call({ProviderKey providerKey, List<PathToField> pathToField});
 }
 
 /// @nodoc
-class __$$InstancePathFromProviderIdImplCopyWithImpl<$Res>
-    extends _$InstancePathCopyWithImpl<$Res, _$InstancePathFromProviderIdImpl>
-    implements _$$InstancePathFromProviderIdImplCopyWith<$Res> {
-  __$$InstancePathFromProviderIdImplCopyWithImpl(
-      _$InstancePathFromProviderIdImpl _value,
-      $Res Function(_$InstancePathFromProviderIdImpl) _then)
+class __$$ProviderKeyInstancePathImplCopyWithImpl<$Res>
+    extends _$InstancePathCopyWithImpl<$Res, _$ProviderKeyInstancePathImpl>
+    implements _$$ProviderKeyInstancePathImplCopyWith<$Res> {
+  __$$ProviderKeyInstancePathImplCopyWithImpl(
+      _$ProviderKeyInstancePathImpl _value,
+      $Res Function(_$ProviderKeyInstancePathImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? providerId = null,
+    Object? providerKey = null,
     Object? pathToField = null,
   }) {
-    return _then(_$InstancePathFromProviderIdImpl(
-      null == providerId
-          ? _value.providerId
-          : providerId // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$ProviderKeyInstancePathImpl(
+      null == providerKey
+          ? _value.providerKey
+          : providerKey // ignore: cast_nullable_to_non_nullable
+              as ProviderKey,
       pathToField: null == pathToField
           ? _value._pathToField
           : pathToField // ignore: cast_nullable_to_non_nullable
@@ -3560,15 +3559,15 @@ class __$$InstancePathFromProviderIdImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InstancePathFromProviderIdImpl extends _InstancePathFromProviderId
+class _$ProviderKeyInstancePathImpl extends ProviderKeyInstancePath
     with DiagnosticableTreeMixin {
-  const _$InstancePathFromProviderIdImpl(this.providerId,
+  const _$ProviderKeyInstancePathImpl(this.providerKey,
       {final List<PathToField> pathToField = const <PathToField>[]})
       : _pathToField = pathToField,
         super._();
 
   @override
-  final String providerId;
+  final ProviderKey providerKey;
   final List<PathToField> _pathToField;
   @override
   @JsonKey()
@@ -3580,15 +3579,15 @@ class _$InstancePathFromProviderIdImpl extends _InstancePathFromProviderId
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'InstancePath.fromProviderId(providerId: $providerId, pathToField: $pathToField)';
+    return 'InstancePath.fromProviderKey(providerKey: $providerKey, pathToField: $pathToField)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'InstancePath.fromProviderId'))
-      ..add(DiagnosticsProperty('providerId', providerId))
+      ..add(DiagnosticsProperty('type', 'InstancePath.fromProviderKey'))
+      ..add(DiagnosticsProperty('providerKey', providerKey))
       ..add(DiagnosticsProperty('pathToField', pathToField));
   }
 
@@ -3596,33 +3595,34 @@ class _$InstancePathFromProviderIdImpl extends _InstancePathFromProviderId
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InstancePathFromProviderIdImpl &&
-            (identical(other.providerId, providerId) ||
-                other.providerId == providerId) &&
+            other is _$ProviderKeyInstancePathImpl &&
+            (identical(other.providerKey, providerKey) ||
+                other.providerKey == providerKey) &&
             const DeepCollectionEquality()
                 .equals(other._pathToField, _pathToField));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, providerId,
+  int get hashCode => Object.hash(runtimeType, providerKey,
       const DeepCollectionEquality().hash(_pathToField));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$InstancePathFromProviderIdImplCopyWith<_$InstancePathFromProviderIdImpl>
-      get copyWith => __$$InstancePathFromProviderIdImplCopyWithImpl<
-          _$InstancePathFromProviderIdImpl>(this, _$identity);
+  _$$ProviderKeyInstancePathImplCopyWith<_$ProviderKeyInstancePathImpl>
+      get copyWith => __$$ProviderKeyInstancePathImplCopyWithImpl<
+          _$ProviderKeyInstancePathImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String instanceId, List<PathToField> pathToField)
         fromInstanceId,
-    required TResult Function(String providerId, List<PathToField> pathToField)
-        fromProviderId,
+    required TResult Function(
+            ProviderKey providerKey, List<PathToField> pathToField)
+        fromProviderKey,
   }) {
-    return fromProviderId(providerId, pathToField);
+    return fromProviderKey(providerKey, pathToField);
   }
 
   @override
@@ -3630,10 +3630,10 @@ class _$InstancePathFromProviderIdImpl extends _InstancePathFromProviderId
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String instanceId, List<PathToField> pathToField)?
         fromInstanceId,
-    TResult? Function(String providerId, List<PathToField> pathToField)?
-        fromProviderId,
+    TResult? Function(ProviderKey providerKey, List<PathToField> pathToField)?
+        fromProviderKey,
   }) {
-    return fromProviderId?.call(providerId, pathToField);
+    return fromProviderKey?.call(providerKey, pathToField);
   }
 
   @override
@@ -3641,12 +3641,12 @@ class _$InstancePathFromProviderIdImpl extends _InstancePathFromProviderId
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String instanceId, List<PathToField> pathToField)?
         fromInstanceId,
-    TResult Function(String providerId, List<PathToField> pathToField)?
-        fromProviderId,
+    TResult Function(ProviderKey providerKey, List<PathToField> pathToField)?
+        fromProviderKey,
     required TResult orElse(),
   }) {
-    if (fromProviderId != null) {
-      return fromProviderId(providerId, pathToField);
+    if (fromProviderKey != null) {
+      return fromProviderKey(providerKey, pathToField);
     }
     return orElse();
   }
@@ -3654,45 +3654,45 @@ class _$InstancePathFromProviderIdImpl extends _InstancePathFromProviderId
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_InstancePathFromInstanceId value) fromInstanceId,
-    required TResult Function(_InstancePathFromProviderId value) fromProviderId,
+    required TResult Function(IdInstancePath value) fromInstanceId,
+    required TResult Function(ProviderKeyInstancePath value) fromProviderKey,
   }) {
-    return fromProviderId(this);
+    return fromProviderKey(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_InstancePathFromInstanceId value)? fromInstanceId,
-    TResult? Function(_InstancePathFromProviderId value)? fromProviderId,
+    TResult? Function(IdInstancePath value)? fromInstanceId,
+    TResult? Function(ProviderKeyInstancePath value)? fromProviderKey,
   }) {
-    return fromProviderId?.call(this);
+    return fromProviderKey?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_InstancePathFromInstanceId value)? fromInstanceId,
-    TResult Function(_InstancePathFromProviderId value)? fromProviderId,
+    TResult Function(IdInstancePath value)? fromInstanceId,
+    TResult Function(ProviderKeyInstancePath value)? fromProviderKey,
     required TResult orElse(),
   }) {
-    if (fromProviderId != null) {
-      return fromProviderId(this);
+    if (fromProviderKey != null) {
+      return fromProviderKey(this);
     }
     return orElse();
   }
 }
 
-abstract class _InstancePathFromProviderId extends InstancePath {
-  const factory _InstancePathFromProviderId(final String providerId,
-      {final List<PathToField> pathToField}) = _$InstancePathFromProviderIdImpl;
-  const _InstancePathFromProviderId._() : super._();
+abstract class ProviderKeyInstancePath extends InstancePath {
+  const factory ProviderKeyInstancePath(final ProviderKey providerKey,
+      {final List<PathToField> pathToField}) = _$ProviderKeyInstancePathImpl;
+  const ProviderKeyInstancePath._() : super._();
 
-  String get providerId;
+  ProviderKey get providerKey;
   @override
   List<PathToField> get pathToField;
   @override
   @JsonKey(ignore: true)
-  _$$InstancePathFromProviderIdImplCopyWith<_$InstancePathFromProviderIdImpl>
+  _$$ProviderKeyInstancePathImplCopyWith<_$ProviderKeyInstancePathImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

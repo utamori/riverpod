@@ -1,7 +1,8 @@
 import 'package:devtools_extensions/devtools_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider_devtools_extension/src/utils/riverpod_error_logger_observer.dart';
+
+import 'src/utils/riverpod_error_logger_observer.dart';
 
 void main() {
   runApp(
