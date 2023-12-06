@@ -41,7 +41,7 @@ final vmServiceProvider = AutoDisposeProvider<vm_service.VmService?>.internal(
 );
 
 typedef VmServiceRef = AutoDisposeProviderRef<vm_service.VmService?>;
-String _$libraryEvalHash() => r'85fccd1b74b26fde3eba791bd90678519f4eb2f7';
+String _$evalHash() => r'7f804240d30dd31b1e718a14d9f4861932059ad2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -64,27 +64,27 @@ class _SystemHash {
   }
 }
 
-/// See also [libraryEval].
-@ProviderFor(libraryEval)
-const libraryEvalProvider = LibraryEvalFamily();
+/// See also [eval].
+@ProviderFor(eval)
+const evalProvider = EvalFamily();
 
-/// See also [libraryEval].
-class LibraryEvalFamily extends Family<AsyncValue<devtool.EvalOnDartLibrary>> {
-  /// See also [libraryEval].
-  const LibraryEvalFamily();
+/// See also [eval].
+class EvalFamily extends Family<AsyncValue<devtool.EvalOnDartLibrary>> {
+  /// See also [eval].
+  const EvalFamily();
 
-  /// See also [libraryEval].
-  LibraryEvalProvider call({
-    String libraryPath = 'dart:io',
+  /// See also [eval].
+  EvalProvider call({
+    required String libraryPath,
   }) {
-    return LibraryEvalProvider(
+    return EvalProvider(
       libraryPath: libraryPath,
     );
   }
 
   @override
-  LibraryEvalProvider getProviderOverride(
-    covariant LibraryEvalProvider provider,
+  EvalProvider getProviderOverride(
+    covariant EvalProvider provider,
   ) {
     return call(
       libraryPath: provider.libraryPath,
@@ -103,33 +103,30 @@ class LibraryEvalFamily extends Family<AsyncValue<devtool.EvalOnDartLibrary>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'libraryEvalProvider';
+  String? get name => r'evalProvider';
 }
 
-/// See also [libraryEval].
-class LibraryEvalProvider
+/// See also [eval].
+class EvalProvider
     extends AutoDisposeFutureProvider<devtool.EvalOnDartLibrary> {
-  /// See also [libraryEval].
-  LibraryEvalProvider({
-    String libraryPath = 'dart:io',
+  /// See also [eval].
+  EvalProvider({
+    required String libraryPath,
   }) : this._internal(
-          (ref) => libraryEval(
-            ref as LibraryEvalRef,
+          (ref) => eval(
+            ref as EvalRef,
             libraryPath: libraryPath,
           ),
-          from: libraryEvalProvider,
-          name: r'libraryEvalProvider',
+          from: evalProvider,
+          name: r'evalProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$libraryEvalHash,
-          dependencies: LibraryEvalFamily._dependencies,
-          allTransitiveDependencies:
-              LibraryEvalFamily._allTransitiveDependencies,
+              const bool.fromEnvironment('dart.vm.product') ? null : _$evalHash,
+          dependencies: EvalFamily._dependencies,
+          allTransitiveDependencies: EvalFamily._allTransitiveDependencies,
           libraryPath: libraryPath,
         );
 
-  LibraryEvalProvider._internal(
+  EvalProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -143,13 +140,12 @@ class LibraryEvalProvider
 
   @override
   Override overrideWith(
-    FutureOr<devtool.EvalOnDartLibrary> Function(LibraryEvalRef provider)
-        create,
+    FutureOr<devtool.EvalOnDartLibrary> Function(EvalRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: LibraryEvalProvider._internal(
-        (ref) => create(ref as LibraryEvalRef),
+      override: EvalProvider._internal(
+        (ref) => create(ref as EvalRef),
         from: from,
         name: null,
         dependencies: null,
@@ -162,12 +158,12 @@ class LibraryEvalProvider
 
   @override
   AutoDisposeFutureProviderElement<devtool.EvalOnDartLibrary> createElement() {
-    return _LibraryEvalProviderElement(this);
+    return _EvalProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LibraryEvalProvider && other.libraryPath == libraryPath;
+    return other is EvalProvider && other.libraryPath == libraryPath;
   }
 
   @override
@@ -179,19 +175,33 @@ class LibraryEvalProvider
   }
 }
 
-mixin LibraryEvalRef
-    on AutoDisposeFutureProviderRef<devtool.EvalOnDartLibrary> {
+mixin EvalRef on AutoDisposeFutureProviderRef<devtool.EvalOnDartLibrary> {
   /// The parameter `libraryPath` of this provider.
   String get libraryPath;
 }
 
-class _LibraryEvalProviderElement
+class _EvalProviderElement
     extends AutoDisposeFutureProviderElement<devtool.EvalOnDartLibrary>
-    with LibraryEvalRef {
-  _LibraryEvalProviderElement(super.provider);
+    with EvalRef {
+  _EvalProviderElement(super.provider);
 
   @override
-  String get libraryPath => (origin as LibraryEvalProvider).libraryPath;
+  String get libraryPath => (origin as EvalProvider).libraryPath;
 }
+
+String _$hotRestartHash() => r'ab93eb8f57caffdc8f83241b14c179c4b1a2aafa';
+
+/// See also [hotRestart].
+@ProviderFor(hotRestart)
+final hotRestartProvider = AutoDisposeProvider<void>.internal(
+  hotRestart,
+  name: r'hotRestartProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$hotRestartHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef HotRestartRef = AutoDisposeProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

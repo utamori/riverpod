@@ -119,11 +119,13 @@ Set<ProviderOrFamily>? computeAllTransitiveDependencies(
 ///    possible, but rare enough that its use in debug output is useful).
 ///  * [Object.runtimeType], the [Type] of an object.
 String describeIdentity(Object? object) {
+  // ignore: deprecated_member_use_from_same_package
   return '${object.runtimeType}#${shortHash(object)}';
 }
 
 // Copied from Flutter
 /// [Object.hashCode]'s 20 least-significant bits.
+@Deprecated("use Flutter's shortHash instead")
 String shortHash(Object? object) {
   return object.hashCode.toUnsigned(20).toRadixString(16).padLeft(5, '0');
 }
@@ -211,7 +213,7 @@ mixin ProviderListenable<State> implements ProviderListenableOrFamily {
   /// }
   /// ```
   ///
-  /// This will further optimise our widget by rebuilding it only when "isAdult"
+  /// This will further optimize our widget by rebuilding it only when "isAdult"
   /// changed instead of whenever the age changes.
   ProviderListenable<Selected> select<Selected>(
     Selected Function(State value) selector,

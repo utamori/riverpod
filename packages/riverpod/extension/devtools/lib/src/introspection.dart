@@ -2,22 +2,10 @@ import 'dart:async';
 
 import 'package:devtools_app_shared/service.dart' as devtool;
 import 'package:devtools_app_shared/utils.dart' as devtool;
-import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:vm_service/vm_service.dart' as vm_service;
 
 part 'introspection.g.dart';
-
-extension<T> on FutureOr<T> {
-  Future<T> get sync {
-    final that = this;
-    if (that is Future<T>) {
-      return that;
-    } else {
-      return SynchronousFuture(that);
-    }
-  }
-}
 
 @riverpod
 devtool.ServiceManager? serviceManager(ServiceManagerRef ref) {
@@ -52,10 +40,16 @@ vm_service.VmService? vmService(VmServiceRef ref) {
   return serviceManager?.service;
 }
 
+extension EvalModifier on EvalFamily {
+  EvalProvider get io => this(libraryPath: 'dart:io');
+  EvalProvider get riverpod =>
+      this(libraryPath: 'package:riverpod/src/devtool.dart');
+}
+
 @riverpod
-FutureOr<devtool.EvalOnDartLibrary> libraryEval(
-  LibraryEvalRef ref, {
-  String libraryPath = 'dart:io',
+FutureOr<devtool.EvalOnDartLibrary> eval(
+  EvalRef ref, {
+  required String libraryPath,
 }) {
   final serviceManager = ref.watch(serviceManagerProvider);
   final vmService = ref.watch(vmServiceProvider);
@@ -71,4 +65,18 @@ FutureOr<devtool.EvalOnDartLibrary> libraryEval(
   );
   ref.onDispose(eval.dispose);
   return eval;
+}
+
+@riverpod
+void hotRestart(HotRestartRef ref) {
+  final serviceManager = ref.watch(serviceManagerProvider);
+  if (serviceManager == null) return;
+
+  final selectedIsolateListenable =
+      serviceManager.isolateManager.selectedIsolate;
+
+  selectedIsolateListenable.addListener(ref.notifyListeners);
+  ref.onDispose(
+    () => selectedIsolateListenable.removeListener(ref.notifyListeners),
+  );
 }

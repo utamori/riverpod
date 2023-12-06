@@ -22,6 +22,7 @@ dependencies:
   logging: ^1.1.1
   vm_service: ^13.0.0
   riverpod_annotation: ^0.14.0
+  freezed_annotation: ^2.4.1
 
 dev_dependencies:
   flutter_driver:
@@ -33,6 +34,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.4.7
   riverpod_generator:
+  freezed: ^2.4.5
 
 flutter:
   uses-material-design: true
